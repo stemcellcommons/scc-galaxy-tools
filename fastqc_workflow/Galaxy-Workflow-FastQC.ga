@@ -1,0 +1,64 @@
+{
+    "a_galaxy_workflow": "true", 
+    "annotation": "{\"refinery_type\": \"analysis\"}", 
+    "format-version": "0.1", 
+    "name": "FastQC", 
+    "steps": {
+        "0": {
+            "annotation": "", 
+            "id": 0, 
+            "input_connections": {}, 
+            "inputs": [
+                {
+                    "description": "", 
+                    "name": "Input Dataset"
+                }
+            ], 
+            "name": "Input dataset", 
+            "outputs": [], 
+            "position": {
+                "left": 155, 
+                "top": 389
+            }, 
+            "tool_errors": null, 
+            "tool_id": null, 
+            "tool_state": "{\"name\": \"Input Dataset\"}", 
+            "tool_version": null, 
+            "type": "data_input", 
+            "user_outputs": []
+        }, 
+        "1": {
+            "annotation": "{\"html_file\": {\"name\": \"fastqc_report\", \"description\": \"HTML file containing FASTQC report.\", \"type\": \"html\"}, \"text_file\": {\"name\": \"fastqc_results\", \"description\": \"Data file containing FASTQC results.\", \"type\": \"txt\"}}", 
+            "id": 1, 
+            "input_connections": {
+                "input_file": {
+                    "id": 0, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "name": "FastQC", 
+            "outputs": [
+                {
+                    "name": "html_file", 
+                    "type": "html"
+                }, 
+                {
+                    "name": "text_file", 
+                    "type": "txt"
+                }
+            ], 
+            "position": {
+                "left": 439, 
+                "top": 330.5
+            }, 
+            "post_job_actions": {}, 
+            "tool_errors": null, 
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/devteam/fastqc/fastqc/0.65", 
+            "tool_state": "{\"__page__\": 0, \"contaminants\": \"null\", \"__rerun_remap_job_id__\": null, \"limits\": \"null\", \"input_file\": \"null\"}", 
+            "tool_version": "0.65", 
+            "type": "tool", 
+            "user_outputs": []
+        }
+    }
+}
