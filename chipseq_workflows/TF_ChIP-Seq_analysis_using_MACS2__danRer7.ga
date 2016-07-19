@@ -2,7 +2,7 @@
     "a_galaxy_workflow": "true", 
     "annotation": "{\"refinery_type\": \"analysis\", \"refinery_relationships\": [{\"category\": \"1-1\", \"set1\": \"input_file\", \"set2\": \"exp_file\"}]}", 
     "format-version": "0.1", 
-    "name": "TF ChIP-Seq analysis using MACS2: mm10", 
+    "name": "TF ChIP-Seq analysis using MACS2: danRer7", 
     "steps": {
         "0": {
             "annotation": "", 
