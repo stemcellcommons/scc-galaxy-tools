@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<repositories description="Stem Cell Commons TF ChIP-seq workflow for hg19">
+<repositories description="Stem Cell Commons TF ChIP-seq workflows">
   <repository toolshed="toolshed.g2.bx.psu.edu" name="fastq_groomer_parallel" owner="kevyin" changeset_revision="66ca0d174cf2" />
   <repository toolshed="toolshed.g2.bx.psu.edu" name="bowtie_wrappers" owner="devteam" changeset_revision="df86f29bedee" />
   <repository toolshed="toolshed.g2.bx.psu.edu" name="sam_to_bam" owner="devteam" changeset_revision="d04d9f1c6791" />
