@@ -4,4 +4,5 @@
   <repository toolshed="toolshed.g2.bx.psu.edu" name="trimmomatic" owner="pjbriggs" changeset_revision="f8a9a5eaca8a" />
   <repository toolshed="toolshed.g2.bx.psu.edu" name="tophat2_with_gene_annotations" owner="scottx611x" changeset_revision="015a0cc3c012" />
   <repository toolshed="toolshed.g2.bx.psu.edu" name="featurecounts" owner="yhoogstrate" changeset_revision="e04fbcc4e91a" />
+  <repository toolshed="toolshed.g2.bx.psu.edu" name="split_paired_collection" owner="refinery-platform" changeset_revision="3a60513b51a2" />
 </repositories>

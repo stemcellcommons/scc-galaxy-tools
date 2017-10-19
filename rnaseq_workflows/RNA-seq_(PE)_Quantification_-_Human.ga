@@ -1,0 +1,418 @@
+{
+    "a_galaxy_workflow": "true", 
+    "annotation": "{\n\t\"description\": \"Transcript quantification for paired-end RNA-seq data. Reads are aligned to the human (hg19) reference genome.\",\n\t\"file_relationship\": {\n\t\t\"value_type\": \"LIST\",\n\t\t\"name\": \"List of Paired inputs\",\n\t\t\"file_relationship\": {\n\t\t\t\"file_relationship\": {},\n\t\t\t\"value_type\": \"PAIR\",\n\t\t\t\"name\": \"Paired FASTQ files\",\n\t\t\t\"input_files\": [{\n\t\t\t\t\t\"allowed_filetypes\": [{\n\t\t\t\t\t\t\"name\": \"FASTQ\"\n\t\t\t\t\t}],\n\t\t\t\t\t\"name\": \"Forward FASTQ\",\n\t\t\t\t\t\"description\": \"Forward FASTQ\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"allowed_filetypes\": [{\n\t\t\t\t\t\t\"name\": \"FASTQ\"\n\t\t\t\t\t}],\n\t\t\t\t\t\"name\": \"Reverse FASTQ\",\n\t\t\t\t\t\"description\": \"Reverse FASTQ\"\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t}\n}", 
+    "format-version": "0.1", 
+    "name": "RNA-seq (PE) Quantification - Human", 
+    "steps": {
+        "0": {
+            "annotation": "", 
+            "content_id": null, 
+            "id": 0, 
+            "input_connections": {}, 
+            "inputs": [
+                {
+                    "description": "", 
+                    "name": "Input Dataset Collection"
+                }
+            ], 
+            "label": null, 
+            "name": "Input dataset collection", 
+            "outputs": [], 
+            "position": {
+                "left": 200, 
+                "top": 321.5
+            }, 
+            "tool_errors": null, 
+            "tool_id": null, 
+            "tool_state": "{\"collection_type\": \"paired\", \"name\": \"Input Dataset Collection\"}", 
+            "tool_version": null, 
+            "type": "data_collection_input", 
+            "uuid": "24dc08ea-da03-43f1-80e1-00321e037d6e", 
+            "workflow_outputs": [
+                {
+                    "label": null, 
+                    "output_name": "output", 
+                    "uuid": "7787dd38-db4e-4f45-8f3e-b75f038257c7"
+                }
+            ]
+        }, 
+        "1": {
+            "annotation": "", 
+            "content_id": "toolshed.g2.bx.psu.edu/repos/refinery-platform/split_paired_collection/split_paired_collection/0.2", 
+            "id": 1, 
+            "input_connections": {
+                "input_collection": {
+                    "id": 0, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "label": null, 
+            "name": "Split Paired Collection", 
+            "outputs": [
+                {
+                    "name": "forward_element", 
+                    "type": "data"
+                }, 
+                {
+                    "name": "reverse_element", 
+                    "type": "data"
+                }
+            ], 
+            "position": {
+                "left": 503, 
+                "top": 349.5
+            }, 
+            "post_job_actions": {
+                "ChangeDatatypeActionforward_element": {
+                    "action_arguments": {
+                        "newtype": "fastqsanger"
+                    }, 
+                    "action_type": "ChangeDatatypeAction", 
+                    "output_name": "forward_element"
+                }, 
+                "ChangeDatatypeActionreverse_element": {
+                    "action_arguments": {
+                        "newtype": "fastqsanger"
+                    }, 
+                    "action_type": "ChangeDatatypeAction", 
+                    "output_name": "reverse_element"
+                }, 
+                "HideDatasetActionforward_element": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "forward_element"
+                }, 
+                "HideDatasetActionreverse_element": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "reverse_element"
+                }
+            }, 
+            "tool_errors": null, 
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/refinery-platform/split_paired_collection/split_paired_collection/0.2", 
+            "tool_state": "{\"__page__\": 0, \"__rerun_remap_job_id__\": null, \"input_collection\": \"null\"}", 
+            "tool_version": "0.2", 
+            "type": "tool", 
+            "uuid": "a7bd61cc-00d1-4666-b0eb-c3b119944c1d", 
+            "workflow_outputs": []
+        }, 
+        "2": {
+            "annotation": "", 
+            "content_id": "toolshed.g2.bx.psu.edu/repos/kevyin/fastq_groomer_parallel/fastq_groomer_parallel/0.3.1", 
+            "id": 2, 
+            "input_connections": {
+                "input_file": {
+                    "id": 1, 
+                    "output_name": "forward_element"
+                }
+            }, 
+            "inputs": [], 
+            "label": null, 
+            "name": "FASTQ Parallel Groomer", 
+            "outputs": [
+                {
+                    "name": "output_file", 
+                    "type": "fastqsanger"
+                }
+            ], 
+            "position": {
+                "left": 852, 
+                "top": 251
+            }, 
+            "post_job_actions": {
+                "HideDatasetActionoutput_file": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output_file"
+                }
+            }, 
+            "tool_errors": null, 
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/kevyin/fastq_groomer_parallel/fastq_groomer_parallel/0.3.1", 
+            "tool_state": "{\"__page__\": 0, \"input_type\": \"\\\"sanger\\\"\", \"__rerun_remap_job_id__\": null, \"options_type\": \"{\\\"options_type_selector\\\": \\\"basic\\\", \\\"__current_case__\\\": 0}\", \"input_file\": \"null\"}", 
+            "tool_version": "0.3.1", 
+            "type": "tool", 
+            "uuid": "cde46b5a-7a85-4408-b715-3221a0ecf4f3", 
+            "workflow_outputs": []
+        }, 
+        "3": {
+            "annotation": "", 
+            "content_id": "toolshed.g2.bx.psu.edu/repos/kevyin/fastq_groomer_parallel/fastq_groomer_parallel/0.3.1", 
+            "id": 3, 
+            "input_connections": {
+                "input_file": {
+                    "id": 1, 
+                    "output_name": "reverse_element"
+                }
+            }, 
+            "inputs": [], 
+            "label": null, 
+            "name": "FASTQ Parallel Groomer", 
+            "outputs": [
+                {
+                    "name": "output_file", 
+                    "type": "fastqsanger"
+                }
+            ], 
+            "position": {
+                "left": 853, 
+                "top": 422
+            }, 
+            "post_job_actions": {
+                "HideDatasetActionoutput_file": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output_file"
+                }
+            }, 
+            "tool_errors": null, 
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/kevyin/fastq_groomer_parallel/fastq_groomer_parallel/0.3.1", 
+            "tool_state": "{\"__page__\": 0, \"input_type\": \"\\\"sanger\\\"\", \"__rerun_remap_job_id__\": null, \"options_type\": \"{\\\"options_type_selector\\\": \\\"basic\\\", \\\"__current_case__\\\": 0}\", \"input_file\": \"null\"}", 
+            "tool_version": "0.3.1", 
+            "type": "tool", 
+            "uuid": "24b5c72c-64a5-40a3-826b-5ca963508597", 
+            "workflow_outputs": []
+        }, 
+        "4": {
+            "annotation": "", 
+            "content_id": "toolshed.g2.bx.psu.edu/repos/pjbriggs/trimmomatic/trimmomatic/0.32.3", 
+            "id": 4, 
+            "input_connections": {
+                "paired_end|paired_input_type_conditional|fastq_r1_in": {
+                    "id": 2, 
+                    "output_name": "output_file"
+                }, 
+                "paired_end|paired_input_type_conditional|fastq_r2_in": {
+                    "id": 3, 
+                    "output_name": "output_file"
+                }
+            }, 
+            "inputs": [], 
+            "label": null, 
+            "name": "Trimmomatic", 
+            "outputs": [
+                {
+                    "name": "fastq_out_paired", 
+                    "type": "input"
+                }, 
+                {
+                    "name": "fastq_out_unpaired", 
+                    "type": "input"
+                }, 
+                {
+                    "name": "fastq_out_r1_paired", 
+                    "type": "fastqsanger"
+                }, 
+                {
+                    "name": "fastq_out_r2_paired", 
+                    "type": "fastqsanger"
+                }, 
+                {
+                    "name": "fastq_out_r1_unpaired", 
+                    "type": "fastqsanger"
+                }, 
+                {
+                    "name": "fastq_out_r2_unpaired", 
+                    "type": "fastqsanger"
+                }, 
+                {
+                    "name": "fastq_out", 
+                    "type": "fastqsanger"
+                }
+            ], 
+            "position": {
+                "left": 1211.5, 
+                "top": 292
+            }, 
+            "post_job_actions": {
+                "HideDatasetActionfastq_out": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "fastq_out"
+                }, 
+                "HideDatasetActionfastq_out_paired": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "fastq_out_paired"
+                }, 
+                "HideDatasetActionfastq_out_r1_paired": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "fastq_out_r1_paired"
+                }, 
+                "HideDatasetActionfastq_out_r1_unpaired": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "fastq_out_r1_unpaired"
+                }, 
+                "HideDatasetActionfastq_out_r2_paired": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "fastq_out_r2_paired"
+                }, 
+                "HideDatasetActionfastq_out_r2_unpaired": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "fastq_out_r2_unpaired"
+                }, 
+                "HideDatasetActionfastq_out_unpaired": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "fastq_out_unpaired"
+                }
+            }, 
+            "tool_errors": null, 
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/pjbriggs/trimmomatic/trimmomatic/0.32.3", 
+            "tool_state": "{\"operations\": \"[{\\\"__index__\\\": 0, \\\"operation\\\": {\\\"window_size\\\": \\\"4\\\", \\\"name\\\": \\\"SLIDINGWINDOW\\\", \\\"__current_case__\\\": 0, \\\"required_quality\\\": \\\"20\\\"}}]\", \"__page__\": 0, \"__rerun_remap_job_id__\": null, \"paired_end\": \"{\\\"is_paired_end\\\": \\\"True\\\", \\\"paired_input_type_conditional\\\": {\\\"paired_input_type\\\": \\\"pair_of_files\\\", \\\"fastq_r1_in\\\": null, \\\"__current_case__\\\": 0, \\\"fastq_r2_in\\\": null}, \\\"__current_case__\\\": 1}\", \"illuminaclip\": \"{\\\"seed_mismatches\\\": \\\"2\\\", \\\"adapter_fasta\\\": \\\"TruSeq3-SE.fa\\\", \\\"__current_case__\\\": 0, \\\"palindrome_clip_threshold\\\": \\\"30\\\", \\\"do_illuminaclip\\\": \\\"True\\\", \\\"simple_clip_threshold\\\": \\\"10\\\"}\"}", 
+            "tool_version": "0.32.3", 
+            "type": "tool", 
+            "uuid": "c60a6cd7-6121-42c2-abff-f5d391b87d40", 
+            "workflow_outputs": []
+        }, 
+        "5": {
+            "annotation": "{\n\"accepted_hits\": {\n\"name\": \"tophat_accepted_hits\", \"description\": \"\",\n\"type\": \"bam\"\n}\n}", 
+            "content_id": "toolshed.g2.bx.psu.edu/repos/scottx611x/tophat2_with_gene_annotations/tophat2/2.1.0", 
+            "id": 5, 
+            "input_connections": {
+                "singlePaired|input1": {
+                    "id": 4, 
+                    "output_name": "fastq_out_r1_paired"
+                }, 
+                "singlePaired|input2": {
+                    "id": 4, 
+                    "output_name": "fastq_out_r2_paired"
+                }
+            }, 
+            "inputs": [], 
+            "label": null, 
+            "name": "TopHat", 
+            "outputs": [
+                {
+                    "name": "align_summary", 
+                    "type": "txt"
+                }, 
+                {
+                    "name": "fusions", 
+                    "type": "tabular"
+                }, 
+                {
+                    "name": "insertions", 
+                    "type": "bed"
+                }, 
+                {
+                    "name": "deletions", 
+                    "type": "bed"
+                }, 
+                {
+                    "name": "junctions", 
+                    "type": "bed"
+                }, 
+                {
+                    "name": "accepted_hits", 
+                    "type": "bam"
+                }, 
+                {
+                    "name": "unmapped", 
+                    "type": "bam"
+                }
+            ], 
+            "position": {
+                "left": 1561.5, 
+                "top": 289
+            }, 
+            "post_job_actions": {
+                "HideDatasetActionalign_summary": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "align_summary"
+                }, 
+                "HideDatasetActiondeletions": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "deletions"
+                }, 
+                "HideDatasetActionfusions": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "fusions"
+                }, 
+                "HideDatasetActioninsertions": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "insertions"
+                }, 
+                "HideDatasetActionjunctions": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "junctions"
+                }, 
+                "HideDatasetActionunmapped": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "unmapped"
+                }
+            }, 
+            "tool_errors": null, 
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/scottx611x/tophat2_with_gene_annotations/tophat2/2.1.0", 
+            "tool_state": "{\"__page__\": 0, \"singlePaired\": \"{\\\"input2\\\": null, \\\"input1\\\": null, \\\"report_discordant_pairs\\\": \\\"Yes\\\", \\\"sPaired\\\": \\\"paired\\\", \\\"__current_case__\\\": 1, \\\"mate_inner_distance\\\": \\\"300\\\", \\\"mate_std_dev\\\": \\\"20\\\"}\", \"__rerun_remap_job_id__\": null, \"readGroup\": \"{\\\"__current_case__\\\": 1, \\\"specReadGroup\\\": \\\"no\\\"}\", \"params\": \"{\\\"min_intron_length\\\": \\\"70\\\", \\\"min_segment_intron\\\": \\\"50\\\", \\\"fusion_search\\\": {\\\"__current_case__\\\": 0, \\\"do_search\\\": \\\"No\\\"}, \\\"seg_mismatches\\\": \\\"2\\\", \\\"library_type\\\": \\\"fr-unstranded\\\", \\\"settingsType\\\": \\\"full\\\", \\\"coverage_search\\\": {\\\"use_search\\\": \\\"No\\\", \\\"__current_case__\\\": 2}, \\\"splice_mismatches\\\": \\\"0\\\", \\\"max_multihits\\\": \\\"20\\\", \\\"bowtie_n\\\": \\\"No\\\", \\\"read_realign_edit_dist\\\": \\\"1000\\\", \\\"max_intron_length\\\": \\\"500000\\\", \\\"anchor_length\\\": \\\"8\\\", \\\"microexon_search\\\": \\\"No\\\", \\\"indel_search\\\": {\\\"max_insertion_length\\\": \\\"3\\\", \\\"max_deletion_length\\\": \\\"3\\\", \\\"__current_case__\\\": 1, \\\"allow_indel_search\\\": \\\"Yes\\\"}, \\\"read_edit_dist\\\": \\\"2\\\", \\\"output_unmapped\\\": \\\"False\\\", \\\"own_junctions\\\": {\\\"gene_model_ann\\\": {\\\"gene_annotation_model\\\": \\\"hg19_genes.gtf\\\", \\\"use_annotations\\\": \\\"indexed\\\", \\\"__current_case__\\\": 1}, \\\"no_novel_juncs\\\": \\\"No\\\", \\\"use_junctions\\\": \\\"Yes\\\", \\\"__current_case__\\\": 0, \\\"raw_juncs\\\": {\\\"use_juncs\\\": \\\"No\\\", \\\"__current_case__\\\": 0}}, \\\"seg_length\\\": \\\"25\\\", \\\"max_segment_intron\\\": \\\"500000\\\", \\\"bowtie2_settings\\\": {\\\"__current_case__\\\": 0, \\\"b2_settings\\\": \\\"No\\\"}, \\\"__current_case__\\\": 1, \\\"read_mismatches\\\": \\\"2\\\"}\", \"refGenomeSource\": \"{\\\"genomeSource\\\": \\\"indexed\\\", \\\"index\\\": \\\"hg19\\\", \\\"__current_case__\\\": 0}\"}", 
+            "tool_version": "2.1.0", 
+            "type": "tool", 
+            "uuid": "24e4d439-89ab-4f92-be42-08ef5b3702c4", 
+            "workflow_outputs": [
+                {
+                    "label": null, 
+                    "output_name": "accepted_hits", 
+                    "uuid": "afbf0ed7-39a7-4eaf-8f26-8ea1b550b2ec"
+                }
+            ]
+        }, 
+        "6": {
+            "annotation": "{\n\"output\": {\n\"name\": \"feature_counts\", \"description\": \"\",\n\"type\": \"tabular\"\n},\n\"output_summary\": {\n\"name\": \"feature_counts_summary\", \"description\": \"\",\n\"type\": \"tabular\"\n}\n}", 
+            "content_id": "toolshed.g2.bx.psu.edu/repos/yhoogstrate/featurecounts/featurecounts/1.4.6.p5", 
+            "id": 6, 
+            "input_connections": {
+                "alignments": {
+                    "id": 5, 
+                    "output_name": "accepted_hits"
+                }
+            }, 
+            "inputs": [], 
+            "label": null, 
+            "name": "featureCounts", 
+            "outputs": [
+                {
+                    "name": "output", 
+                    "type": "tabular"
+                }, 
+                {
+                    "name": "output_summary", 
+                    "type": "tabular"
+                }
+            ], 
+            "position": {
+                "left": 1861.5, 
+                "top": 398
+            }, 
+            "post_job_actions": {}, 
+            "tool_errors": null, 
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/yhoogstrate/featurecounts/featurecounts/1.4.6.p5", 
+            "tool_state": "{\"__page__\": 0, \"reference_gene_sets_source\": \"{\\\"reference_gene_sets\\\": \\\"/mnt/galaxyIndices/gene_annotations/hg19_genes.gtf\\\", \\\"__current_case__\\\": 2, \\\"source_select\\\": \\\"indexed_all\\\"}\", \"format\": \"\\\"tabdel_short\\\"\", \"__rerun_remap_job_id__\": null, \"alignments\": \"null\", \"extended_parameters\": \"{\\\"parameters\\\": \\\"default\\\", \\\"__current_case__\\\": 0}\"}", 
+            "tool_version": "1.4.6.p5", 
+            "type": "tool", 
+            "uuid": "f3e95bbb-f1dd-4d97-9ea3-ec90ee2b9ab8", 
+            "workflow_outputs": [
+                {
+                    "label": null, 
+                    "output_name": "output_summary", 
+                    "uuid": "9162a69c-9023-4ab4-9931-2e147e02f1f4"
+                }, 
+                {
+                    "label": null, 
+                    "output_name": "output", 
+                    "uuid": "772073ae-2b57-4dda-bf6e-c8725c01b106"
+                }
+            ]
+        }
+    }, 
+    "uuid": "a5618acc-41ea-45c2-9cf2-f8ebd7463d88"
+}
