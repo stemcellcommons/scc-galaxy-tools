@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<repositories description="Stem Cell Commons Merge FASTQ workflow requires Collapse Collections tool. Stem Cell Commons Merge BAM workflow requires picard tool.">
+  <repository toolshed="https://toolshed.g2.bx.psu.edu" name="collapse_collections" owner="nml" changeset_revision="25136a2b0cfe" />
+  <repository toolshed="https://toolshed.g2.bx.psu.edu" name="picard" owner="devteam" changeset_revision="379fdf4c41ac" />
+</repositories>
