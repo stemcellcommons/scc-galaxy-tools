@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<repositories description="Stem Cell Commons Qualimap BAM QC requires qualimap2_bamqc tool.">
+  <repository toolshed="https://toolshed.g2.bx.psu.edu" name="qualimap2_bamqc" owner="refinery-platform" changeset_revision="a2438e0f1bbf" />
+</repositories>
