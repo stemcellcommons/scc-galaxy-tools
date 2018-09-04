@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<repositories description="Stem Cell Commons Kallisto workflows require kallisto_quant tool.">
+  <repository toolshed="https://toolshed.g2.bx.psu.edu" name="kallisto_quant" owner="iuc" changeset_revision="b818b23df1e0" />
+</repositories>
