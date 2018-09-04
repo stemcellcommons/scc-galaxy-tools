@@ -2,7 +2,7 @@
     "a_galaxy_workflow": "true", 
     "annotation": "{\n    \"description\": \"Rapid transcript quantification via pseudoalignment (https://pachterlab.github.io/kallisto/). Paired-end reads are quantified against the danRer11 transcriptome.\",\n    \"file_relationship\": {\n        \"value_type\": \"LIST\",\n        \"name\": \"List of Read Pairs\",\n        \"file_relationship\": {\n            \"file_relationship\": {},\n            \"value_type\": \"PAIR\",\n            \"name\": \"Read Pair\",\n            \"input_files\": [{\n                    \"allowed_filetypes\": [{\"name\": \"FASTQ\"}],\n                    \"name\": \"Input File\",\n                    \"description\": \"Forward Reads\"\n                },\n                {\n                    \"allowed_filetypes\": [{\"name\": \"FASTQ\"}],\n                    \"name\": \"Input File\",\n                    \"description\": \"Reverse Reads\"\n                }\n            ]\n        }\n    }\n}", 
     "format-version": "0.1", 
-    "name": "Kallisto RNA-seq (PE) Quantification - Human", 
+    "name": "Kallisto RNA-seq (PE) Quantification - Zebrafish", 
     "steps": {
         "0": {
             "annotation": "", 
