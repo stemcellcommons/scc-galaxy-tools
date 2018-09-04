@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<repositories description="Stem Cell Commons deepTools BAM QC workflow requires deeptools_multi_bam_summary, deeptools_plot_correlation, deeptools_plot_pca tools.">
+  <repository toolshed="https://toolshed.g2.bx.psu.edu" name="deeptools_multi_bam_summary" owner="bgruening" changeset_revision="87d2c75884d9" />
+  <repository toolshed="https://toolshed.g2.bx.psu.edu" name="deeptools_plot_correlation" owner="bgruening" changeset_revision="b3589208f673" />
+  <repository toolshed="https://toolshed.g2.bx.psu.edu" name="deeptools_plot_pca" owner="bgruening" changeset_revision="610bbc25ed8b" />
+</repositories>
