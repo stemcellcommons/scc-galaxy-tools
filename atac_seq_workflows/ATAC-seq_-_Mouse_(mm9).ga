@@ -1,0 +1,435 @@
+{
+    "a_galaxy_workflow": "true", 
+    "annotation": "{\n\t\"description\": \"Identify accessible chromatin regions. Reads are aligned to the mouse (mm9) reference genome.\",\n\t\"file_relationship\": {\n\t\t\"value_type\": \"LIST\",\n\t\t\"name\": \"List of Read Pairs\",\n\t\t\"file_relationship\": {\n\t\t\t\"file_relationship\": {},\n\t\t\t\"value_type\": \"PAIR\",\n\t\t\t\"name\": \"Read Pair\",\n\t\t\t\"input_files\": [{\n\t\t\t\t\t\"allowed_filetypes\": [{\n\t\t\t\t\t\t\"name\": \"FASTQ\"\n\t\t\t\t\t}],\n\t\t\t\t\t\"name\": \"Input File\",\n\t\t\t\t\t\"description\": \"Forward Reads\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"allowed_filetypes\": [{\n\t\t\t\t\t\t\"name\": \"FASTQ\"\n\t\t\t\t\t}],\n\t\t\t\t\t\"name\": \"Input File\",\n\t\t\t\t\t\"description\": \"Reverse Reads\"\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t}\n}", 
+    "format-version": "0.1", 
+    "name": "ATAC-seq - Mouse (mm9)", 
+    "steps": {
+        "0": {
+            "annotation": "", 
+            "content_id": null, 
+            "errors": null, 
+            "id": 0, 
+            "input_connections": {}, 
+            "inputs": [], 
+            "label": null, 
+            "name": "Input dataset collection", 
+            "outputs": [], 
+            "position": {
+                "left": 256.5, 
+                "top": 237
+            }, 
+            "tool_id": null, 
+            "tool_state": "{\"collection_type\": \"paired\"}", 
+            "tool_version": null, 
+            "type": "data_collection_input", 
+            "uuid": "5a8e8520-d4b1-4031-ac89-709b1988462c", 
+            "workflow_outputs": [
+                {
+                    "label": null, 
+                    "output_name": "output", 
+                    "uuid": "2037bfef-ffc2-4517-83eb-11e2f74318e1"
+                }
+            ]
+        }, 
+        "1": {
+            "annotation": "", 
+            "content_id": "toolshed.g2.bx.psu.edu/repos/refinery-platform/split_paired_collection/split_paired_collection/0.2", 
+            "errors": null, 
+            "id": 1, 
+            "input_connections": {
+                "input_collection": {
+                    "id": 0, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool Split Paired Collection", 
+                    "name": "input_collection"
+                }
+            ], 
+            "label": null, 
+            "name": "Split Paired Collection", 
+            "outputs": [
+                {
+                    "name": "forward_element", 
+                    "type": "data"
+                }, 
+                {
+                    "name": "reverse_element", 
+                    "type": "data"
+                }
+            ], 
+            "position": {
+                "left": 562, 
+                "top": 221
+            }, 
+            "post_job_actions": {
+                "ChangeDatatypeActionforward_element": {
+                    "action_arguments": {
+                        "newtype": "fastqsanger"
+                    }, 
+                    "action_type": "ChangeDatatypeAction", 
+                    "output_name": "forward_element"
+                }, 
+                "ChangeDatatypeActionreverse_element": {
+                    "action_arguments": {
+                        "newtype": "fastqsanger"
+                    }, 
+                    "action_type": "ChangeDatatypeAction", 
+                    "output_name": "reverse_element"
+                }, 
+                "HideDatasetActionforward_element": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "forward_element"
+                }, 
+                "HideDatasetActionreverse_element": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "reverse_element"
+                }
+            }, 
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/refinery-platform/split_paired_collection/split_paired_collection/0.2", 
+            "tool_shed_repository": {
+                "changeset_revision": "3a60513b51a2", 
+                "name": "split_paired_collection", 
+                "owner": "refinery-platform", 
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            }, 
+            "tool_state": "{\"__page__\": null, \"__rerun_remap_job_id__\": null, \"input_collection\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}", 
+            "tool_version": "0.2", 
+            "type": "tool", 
+            "uuid": "6e6b7b1f-dcb2-4a40-8351-f706b535871f", 
+            "workflow_outputs": []
+        }, 
+        "2": {
+            "annotation": "", 
+            "content_id": "toolshed.g2.bx.psu.edu/repos/devteam/bowtie_wrappers/bowtie_wrapper/1.1.3", 
+            "errors": null, 
+            "id": 2, 
+            "input_connections": {
+                "singlePaired|pInput1": {
+                    "id": 1, 
+                    "output_name": "forward_element"
+                }, 
+                "singlePaired|pInput2": {
+                    "id": 1, 
+                    "output_name": "reverse_element"
+                }
+            }, 
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool Map with Bowtie for Illumina", 
+                    "name": "singlePaired"
+                }, 
+                {
+                    "description": "runtime parameter for tool Map with Bowtie for Illumina", 
+                    "name": "singlePaired"
+                }
+            ], 
+            "label": null, 
+            "name": "Map with Bowtie for Illumina", 
+            "outputs": [
+                {
+                    "name": "output", 
+                    "type": "sam"
+                }, 
+                {
+                    "name": "output_suppressed_reads_l", 
+                    "type": "fastq"
+                }, 
+                {
+                    "name": "output_suppressed_reads_r", 
+                    "type": "fastq"
+                }, 
+                {
+                    "name": "output_unmapped_reads_l", 
+                    "type": "fastq"
+                }, 
+                {
+                    "name": "output_unmapped_reads_r", 
+                    "type": "fastq"
+                }
+            ], 
+            "position": {
+                "left": 864, 
+                "top": 328
+            }, 
+            "post_job_actions": {
+                "HideDatasetActionoutput": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output"
+                }, 
+                "HideDatasetActionoutput_suppressed_reads_l": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output_suppressed_reads_l"
+                }, 
+                "HideDatasetActionoutput_suppressed_reads_r": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output_suppressed_reads_r"
+                }, 
+                "HideDatasetActionoutput_unmapped_reads_l": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output_unmapped_reads_l"
+                }, 
+                "HideDatasetActionoutput_unmapped_reads_r": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output_unmapped_reads_r"
+                }
+            }, 
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/devteam/bowtie_wrappers/bowtie_wrapper/1.1.3", 
+            "tool_shed_repository": {
+                "changeset_revision": "df86f29bedee", 
+                "name": "bowtie_wrappers", 
+                "owner": "devteam", 
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            }, 
+            "tool_state": "{\"suppressHeader\": \"\\\"false\\\"\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"refGenomeSource\": \"{\\\"genomeSource\\\": \\\"indexed\\\", \\\"index\\\": \\\"mm9\\\", \\\"__current_case__\\\": 0}\", \"singlePaired\": \"{\\\"pParams\\\": {\\\"pSettingsType\\\": \\\"preSet\\\", \\\"__current_case__\\\": 0}, \\\"pMaxInsert\\\": \\\"1000\\\", \\\"pInput2\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"pInput1\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"sPaired\\\": \\\"paired\\\", \\\"__current_case__\\\": 1, \\\"pMateOrient\\\": \\\"fr\\\"}\"}", 
+            "tool_version": "1.1.3", 
+            "type": "tool", 
+            "uuid": "ffb5227c-ebca-4750-a376-08e7c6c286be", 
+            "workflow_outputs": []
+        }, 
+        "3": {
+            "annotation": "", 
+            "content_id": "toolshed.g2.bx.psu.edu/repos/devteam/sam_to_bam/sam_to_bam/2.0", 
+            "errors": null, 
+            "id": 3, 
+            "input_connections": {
+                "source|input1": {
+                    "id": 2, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool SAM-to-BAM", 
+                    "name": "source"
+                }
+            ], 
+            "label": null, 
+            "name": "SAM-to-BAM", 
+            "outputs": [
+                {
+                    "name": "output1", 
+                    "type": "bam"
+                }
+            ], 
+            "position": {
+                "left": 1179, 
+                "top": 401
+            }, 
+            "post_job_actions": {
+                "HideDatasetActionoutput1": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output1"
+                }
+            }, 
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/devteam/sam_to_bam/sam_to_bam/2.0", 
+            "tool_shed_repository": {
+                "changeset_revision": "d04d9f1c6791", 
+                "name": "sam_to_bam", 
+                "owner": "devteam", 
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            }, 
+            "tool_state": "{\"source\": \"{\\\"index_source\\\": \\\"cached\\\", \\\"index\\\": \\\"mm9\\\", \\\"input1\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"__current_case__\\\": 0}\", \"__rerun_remap_job_id__\": null, \"__page__\": null}", 
+            "tool_version": "2.0", 
+            "type": "tool", 
+            "uuid": "ed2ef69f-6c9a-4997-9877-f4807816b134", 
+            "workflow_outputs": []
+        }, 
+        "4": {
+            "annotation": "", 
+            "content_id": "toolshed.g2.bx.psu.edu/repos/devteam/picard/picard_MarkDuplicates/1.126.0", 
+            "errors": null, 
+            "id": 4, 
+            "input_connections": {
+                "inputFile": {
+                    "id": 3, 
+                    "output_name": "output1"
+                }
+            }, 
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool MarkDuplicates", 
+                    "name": "inputFile"
+                }
+            ], 
+            "label": null, 
+            "name": "MarkDuplicates", 
+            "outputs": [
+                {
+                    "name": "metrics_file", 
+                    "type": "txt"
+                }, 
+                {
+                    "name": "outFile", 
+                    "type": "bam"
+                }
+            ], 
+            "position": {
+                "left": 1429, 
+                "top": 480
+            }, 
+            "post_job_actions": {
+                "HideDatasetActionmetrics_file": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "metrics_file"
+                }
+            }, 
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/devteam/picard/picard_MarkDuplicates/1.126.0", 
+            "tool_shed_repository": {
+                "changeset_revision": "379fdf4c41ac", 
+                "name": "picard", 
+                "owner": "devteam", 
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            }, 
+            "tool_state": "{\"duplicate_scoring_strategy\": \"\\\"SUM_OF_BASE_QUALITIES\\\"\", \"remove_duplicates\": \"\\\"true\\\"\", \"read_name_regex\": \"\\\"[a-zA-Z0-9]+:[0-9]:([0-9]+):([0-9]+):([0-9]+).*.\\\"\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"validation_stringency\": \"\\\"LENIENT\\\"\", \"comments\": \"[]\", \"assume_sorted\": \"\\\"true\\\"\", \"optical_duplicate_pixel_distance\": \"\\\"100\\\"\", \"inputFile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}", 
+            "tool_version": "1.126.0", 
+            "type": "tool", 
+            "uuid": "e142fddc-8c59-4b80-a1ff-c350b5108526", 
+            "workflow_outputs": [
+                {
+                    "label": null, 
+                    "output_name": "outFile", 
+                    "uuid": "7e1e6562-d64b-46e9-ba74-d5cb7bae6353"
+                }
+            ]
+        }, 
+        "5": {
+            "annotation": "", 
+            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/macs2/macs2_callpeak/2.1.0.20151222.0", 
+            "errors": null, 
+            "id": 5, 
+            "input_connections": {
+                "input_treatment_file": {
+                    "id": 4, 
+                    "output_name": "outFile"
+                }
+            }, 
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool MACS2 callpeak", 
+                    "name": "input_control_file"
+                }, 
+                {
+                    "description": "runtime parameter for tool MACS2 callpeak", 
+                    "name": "input_treatment_file"
+                }
+            ], 
+            "label": null, 
+            "name": "MACS2 callpeak", 
+            "outputs": [
+                {
+                    "name": "output_tabular", 
+                    "type": "tabular"
+                }, 
+                {
+                    "name": "output_broadpeaks", 
+                    "type": "bed"
+                }, 
+                {
+                    "name": "output_gappedpeaks", 
+                    "type": "bed"
+                }, 
+                {
+                    "name": "output_narrowpeaks", 
+                    "type": "bed"
+                }, 
+                {
+                    "name": "output_summits", 
+                    "type": "bed"
+                }, 
+                {
+                    "name": "output_plot", 
+                    "type": "pdf"
+                }, 
+                {
+                    "name": "output_treat_pileup", 
+                    "type": "bedgraph"
+                }, 
+                {
+                    "name": "output_control_lambda", 
+                    "type": "bedgraph"
+                }, 
+                {
+                    "name": "output_extra_files", 
+                    "type": "html"
+                }
+            ], 
+            "position": {
+                "left": 1793.5, 
+                "top": 597
+            }, 
+            "post_job_actions": {
+                "HideDatasetActionoutput_broadpeaks": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output_broadpeaks"
+                }, 
+                "HideDatasetActionoutput_control_lambda": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output_control_lambda"
+                }, 
+                "HideDatasetActionoutput_extra_files": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output_extra_files"
+                }, 
+                "HideDatasetActionoutput_gappedpeaks": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output_gappedpeaks"
+                }, 
+                "HideDatasetActionoutput_plot": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output_plot"
+                }, 
+                "HideDatasetActionoutput_treat_pileup": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output_treat_pileup"
+                }
+            }, 
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/macs2/macs2_callpeak/2.1.0.20151222.0", 
+            "tool_shed_repository": {
+                "changeset_revision": "56e104999978", 
+                "name": "macs2", 
+                "owner": "iuc", 
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            }, 
+            "tool_state": "{\"__page__\": null, \"effective_genome_size_options\": \"{\\\"effective_genome_size_options_selector\\\": \\\"2150570000\\\", \\\"__current_case__\\\": 1}\", \"bampe\": \"\\\"true\\\"\", \"input_control_file\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"band_width\": \"\\\"300\\\"\", \"cutoff_options\": \"{\\\"cutoff_options_selector\\\": \\\"qvalue\\\", \\\"qvalue\\\": \\\"0.05\\\", \\\"__current_case__\\\": 1}\", \"advanced_options\": \"{\\\"advanced_options_selector\\\": \\\"on\\\", \\\"ratio\\\": \\\"1.0\\\", \\\"to_large\\\": \\\"false\\\", \\\"slocal\\\": \\\"1000\\\", \\\"broad_options\\\": {\\\"broad_options_selector\\\": \\\"nobroad\\\", \\\"call_summits\\\": \\\"false\\\", \\\"__current_case__\\\": 1}, \\\"nolambda\\\": \\\"false\\\", \\\"llocal\\\": \\\"10000\\\", \\\"keep_dup_options\\\": {\\\"__current_case__\\\": 2, \\\"keep_dup_options_selector\\\": \\\"all\\\"}, \\\"__current_case__\\\": 0}\", \"input_treatment_file\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"nomodel_type\": \"{\\\"nomodel_type_selector\\\": \\\"create_model\\\", \\\"__current_case__\\\": 0}\", \"outputs\": \"[\\\"peaks_tabular\\\", \\\"summits\\\", \\\"bdg\\\"]\"}", 
+            "tool_version": "2.1.0.20151222.0", 
+            "type": "tool", 
+            "uuid": "f58a8811-f8e3-4e91-a8b9-4c635e7d00c5", 
+            "workflow_outputs": [
+                {
+                    "label": null, 
+                    "output_name": "output_tabular", 
+                    "uuid": "29b6c2d4-6f1a-48d2-82a3-b0d45c186bda"
+                }, 
+                {
+                    "label": null, 
+                    "output_name": "output_summits", 
+                    "uuid": "26d6760f-5f82-4d24-a4fa-0294c37290ef"
+                }, 
+                {
+                    "label": null, 
+                    "output_name": "output_narrowpeaks", 
+                    "uuid": "b6445346-e10b-4deb-a7e8-b8df81c73796"
+                }
+            ]
+        }
+    }, 
+    "uuid": "beaac1a6-7095-4c93-887c-1238cd41186e"
+}
