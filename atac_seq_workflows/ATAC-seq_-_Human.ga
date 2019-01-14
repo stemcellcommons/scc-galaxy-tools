@@ -2,7 +2,7 @@
     "a_galaxy_workflow": "true", 
     "annotation": "{\n\t\"description\": \"Identify accessible chromatin regions. Reads are aligned to the human (hg19) reference genome.\",\n\t\"file_relationship\": {\n\t\t\"value_type\": \"LIST\",\n\t\t\"name\": \"List of Read Pairs\",\n\t\t\"file_relationship\": {\n\t\t\t\"file_relationship\": {},\n\t\t\t\"value_type\": \"PAIR\",\n\t\t\t\"name\": \"Read Pair\",\n\t\t\t\"input_files\": [{\n\t\t\t\t\t\"allowed_filetypes\": [{\n\t\t\t\t\t\t\"name\": \"FASTQ\"\n\t\t\t\t\t}],\n\t\t\t\t\t\"name\": \"Input File\",\n\t\t\t\t\t\"description\": \"Forward Reads\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"allowed_filetypes\": [{\n\t\t\t\t\t\t\"name\": \"FASTQ\"\n\t\t\t\t\t}],\n\t\t\t\t\t\"name\": \"Input File\",\n\t\t\t\t\t\"description\": \"Reverse Reads\"\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t}\n}", 
     "format-version": "0.1", 
-    "name": "ATAC-seq - Zebrafish", 
+    "name": "ATAC-seq - Human", 
     "steps": {
         "0": {
             "annotation": "", 
